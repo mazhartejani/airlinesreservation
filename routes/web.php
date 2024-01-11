@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Route;
+use Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,4 +21,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/reservation', [TicketController::class, 'reserveTicketForm'])->name('reserveTicketForm');
+Route::post('/reserve-ticket', [TicketController::class, 'reserveTicket'])->name('reserveTicket');
+Route::get('/search-flight', [FlightController::class, 'flightSearchForm'])->name('flightSearchForm');
+Route::post('/flight-search', [FlightController::class, 'showFlightInformation'])->name('flightSearch');
+Route::resource('/flights', FlightController::class);
