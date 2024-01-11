@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('seat_number');
             $table->decimal('price', 8, 2);
             $table->dateTime('booking_date_time');
+            $table->string('flight_number');
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('flight_number')->constrained('flights', 'flight_number');
+            $table->foreign('flight_number')->references('flight_number')->on('flights');
             $table->timestamps();
         });
     }
