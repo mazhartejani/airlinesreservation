@@ -31,15 +31,20 @@
                     <!-- Left Side Of Navbar -->
                     @auth
                     <ul class="navbar-nav me-auto">
+                        @if(auth()->user()->is_admin)
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('flights.create') }}">{{ __('Flight') }}</a>
-                        </li>                    
+                        </li>    
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('getAllTickets') }}">{{ __('Tickets') }}</a>
+                        </li> 
+                        @endif                
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('reserveTicketForm') }}">{{ __('Reservation') }}</a>
                         </li>  
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('flightSearchForm') }}">{{ __('Flight Search') }}</a>
-                        </li>  
+                        </li>   
                     </ul>
                     @endauth
 
@@ -65,6 +70,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('ticketsHistory') }}">
+                                        {{ __('My tickets') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -74,6 +82,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+
                                 </div>
                             </li>
                         @endguest

@@ -5,12 +5,37 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Flight;
 use App\Models\Ticket;
+use Auth;
 
 class TicketController extends Controller
 {
     public function reserveTicketForm() {
         return view('pages.reservation');
     }
+
+    // Admin function
+    public function getAllTickets() {
+        $user = Auth::user();
+        $title = 'My tickets';
+
+        if($user->is_admin) {
+            $tickets = Ticket::with('passenger')->paginate(10);
+            $title = 'Tickets';
+        } else {
+            $tickets = Ticket::with('passenger')->where('user_id', $user->id)->paginate(10);
+        }
+        
+        return view('pages.tickets.tickets', compact('tickets', 'title'));
+    }
+
+    public function updateTicketStatus($ticket_number, $status) {
+        $ticket = Ticket::find($ticket_number);
+        $ticket->status = $status;
+        $ticket->save();
+
+        return redirect()->back()->with('success', 'Ticket ' .  $status . ' created successfully!');
+    }
+
 
     public function reserveTicket(Request $request)
     {
