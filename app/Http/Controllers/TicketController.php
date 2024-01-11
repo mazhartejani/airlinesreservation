@@ -102,6 +102,7 @@ class TicketController extends Controller
             'price' => 100.00, // You may set the actual price based on your system
             'booking_date_time' => now(),
             'flight_number' => $flightNumber,
+            'status' => 'pending', // Set the default status
             'user_id' => auth()->user()->id, // Assuming you have a user authentication system
         ]);
 
