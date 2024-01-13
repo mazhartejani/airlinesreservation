@@ -19,6 +19,7 @@
                             <th scope="col">Ticket No#</th>
                             <th scope="col">Seat</th>
                             <th scope="col">Price</th>
+                            <th scope="col">Departure Time</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
                             </tr>
@@ -31,6 +32,7 @@
                                     <td>{{$ticket['ticket_number']}}</td>
                                     <td>{{$ticket['seat_number']}}</td>
                                     <th>{{$ticket['price']}}</th>
+                                    <th>{{$ticket['booking_date_time']}}</th>
                                     <td>
                                         @if($ticket['status'] == 'cancelled')
                                             <span class="badge rounded-pill bg-danger p-2">{{strtoupper($ticket['status'])}}</span>
@@ -39,9 +41,12 @@
                                         @endif
                                     </td>
                                     <td scope="row">
-                                        <a href="{{route('updateTicketStatus', ['ticket_number' => $ticket['ticket_number'], 'status' => 'confirmed'])}}" class="btn btn-sm btn-success">
-                                            Confirm
-                                        </a>
+                                        @if(auth()->user()->is_admin)
+                                            <a href="{{route('updateTicketStatus', ['ticket_number' => $ticket['ticket_number'], 'status' => 'confirmed'])}}" class="btn btn-sm btn-success">
+                                                Confirm
+                                            </a>
+                                        @endif
+                                        
                                         <a href="{{route('updateTicketStatus', ['ticket_number' => $ticket['ticket_number'], 'status' => 'cancelled'])}}" class="btn btn-sm btn-warning">
                                             Cancel
                                         </a>

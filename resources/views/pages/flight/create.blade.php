@@ -51,26 +51,24 @@
                             </div>
                             <div class="col-md-4 form-group mt-3">
                                 <label for="aircraft_type">Aircraft Type</label>
-                                <input type="text" class="form-control @error('aircraft_type') is-invalid @enderror" id="aircraft_type" name="aircraft_type" placeholder="E.g., Boeing 737" value="{{ old('aircraft_type') }}" required>
+                                <select class="form-select" id="aircraft_type" name="aircraft_type">
+                                    @foreach($aircraftTypes as $key => $value)
+                                        <option value="{{$key}}">{{ $key }}</option>
+                                    @endforeach
+                                </select>
                                 @error('aircraft_type')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
+                                <input type="hidden" name="capacity" id="capacity" value="{{$aircraftTypes['Boeing 737']}}">
                             </div>
                             <div class="col-md-4 form-group mt-3">
-                                <label for="capacity">Capacity</label>
-                                <input type="number" class="form-control @error('capacity') is-invalid @enderror" id="capacity" name="capacity" placeholder="E.g., 150" value="{{ old('capacity') }}" required>
-                                @error('capacity')
-                                    <span class="invalid-feedback">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="col-md-6 form-group mt-3">
                                 <label for="departure_date_time">Departure Date and Time</label>
                                 <input type="datetime-local" class="form-control @error('departure_date_time') is-invalid @enderror" id="departure_date_time" name="departure_date_time" value="{{ old('departure_date_time') }}" required>
                                 @error('departure_date_time')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="col-md-6 form-group mt-3">
+                            <div class="col-md-4 form-group mt-3">
                                 <label for="arrival_date_time">Arrival Date and Time</label>
                                 <input type="datetime-local" class="form-control @error('arrival_date_time') is-invalid @enderror" id="arrival_date_time" name="arrival_date_time" value="{{ old('arrival_date_time') }}" required>
                                 @error('arrival_date_time')
@@ -86,3 +84,16 @@
     </div>
 </div>
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function(){
+    $('#aircraft_type').on('change', function(){
+        var aircrafts = {!! $aircraftTypesObject !!};
+        var selectedVal = $(this).val();
+        $('#capacity').val(aircrafts[selectedVal]);
+    });
+})
+
+</script>

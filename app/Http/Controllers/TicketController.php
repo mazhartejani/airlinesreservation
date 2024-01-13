@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Flight;
 use App\Models\Ticket;
+use App\Models\Seat;
 use Auth;
 
 class TicketController extends Controller
 {
     public function reserveTicketForm() {
-        return view('pages.reservation');
+        $flights = Flight::pluck('flight_number')->toArray();
+        return view('pages.reservation', compact('flights'));
     }
 
     // Admin function
@@ -56,14 +58,14 @@ class TicketController extends Controller
 
         // Check if the preferred seat is available
         if (!in_array($seatPreference, $availableSeats)) {
-            return response()->json(['message' => 'Selected seat is not available.'], 400);
+            return redirect()->back()->with('error', 'Preferred seat is not available.');
         }
 
         // Reserve the seat
         $ticket = $this->reserveSeat($flightNumber, $date, $seatPreference);
 
         // Provide a confirmation message with reservation details
-        return response()->json(['message' => 'Reservation successful.', 'ticket' => $ticket]);
+        return redirect()->route('ticketsHistory')->with('success', 'Reservation successful.')->with('ticket', $ticket);
     }
 
     public function cancelReservation(Request $request)
@@ -104,13 +106,14 @@ class TicketController extends Controller
 
         // Retrieve the list of reserved seats for the specified flight and date
         $reservedSeats = Ticket::where('flight_number', $flightNumber)
-            ->where('booking_date_time', '>=', $date . ' 00:00:00')
-            ->where('booking_date_time', '<=', $date . ' 23:59:59')
-            ->pluck('seat_number')
-            ->toArray();
+        ->where('booking_date_time', '>=', $date . ' 00:00:00')
+        ->where('booking_date_time', '<=', $date . ' 23:59:59')        
+        ->pluck('seat_number')
+        ->toArray();
+            
 
         // Define the total seats available for the flight (replace with your actual logic)
-        $totalSeats = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+        $totalSeats = Seat::where('flight_number', $flightNumber)->pluck('seat_number')->toArray();
 
         // Calculate available seats by removing reserved seats from the total seats
         $availableSeats = array_diff($totalSeats, $reservedSeats);
@@ -125,7 +128,7 @@ class TicketController extends Controller
         $ticket = Ticket::create([
             'seat_number' => $seatPreference,
             'price' => 100.00, // You may set the actual price based on your system
-            'booking_date_time' => now(),
+            'booking_date_time' => $date,
             'flight_number' => $flightNumber,
             'status' => 'pending', // Set the default status
             'user_id' => auth()->user()->id, // Assuming you have a user authentication system

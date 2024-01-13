@@ -9,6 +9,15 @@ use Carbon\Carbon;
 class Flight extends Model
 {
     use HasFactory;
+
+    // Constants
+    const AIRCRAFT_TYPE = [ 
+        'Boeing 737' => '200',
+        'Airbus A320' => '250',
+        'Boeing 747' => '300',
+        'Airbus A380' => '350'
+    ];
+
     // protected $primaryKey = 'flight_number';
     protected $fillable = [
         'flight_number',

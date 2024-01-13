@@ -22,7 +22,9 @@ class FlightController extends Controller
      */
     public function create()
     {
-        return view('pages.flight.create');
+        $aircraftTypes = Flight::AIRCRAFT_TYPE;
+        $aircraftTypesObject = json_encode($aircraftTypes);
+        return view('pages.flight.create', compact('aircraftTypes', 'aircraftTypesObject'));
     }
 
     /**
@@ -36,7 +38,8 @@ class FlightController extends Controller
             'departure_city' => 'required',
             'arrival_city' => 'required',
             'departure_date_time' => 'required|date',
-            'arrival_date_time' => 'required|date|after:departure_date_time',
+            // 'arrival_date_time' => 'required|date|after:departure_date_time',
+            'arrival_date_time' => 'required|date_format:Y-m-d\TH:i|after:departure_date_time',
             'aircraft_type' => 'required',
             'capacity' => 'required|integer|min:1',
         ]);
