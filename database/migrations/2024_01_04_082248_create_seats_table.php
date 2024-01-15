@@ -20,18 +20,6 @@ return new class extends Migration
             $table->foreign('flight_number')->references('flight_number')->on('flights');
             $table->timestamps();
         });
-
-        $rows = ['A', 'B', 'C', 'D', 'E'];
-        $columns = 6;
-
-        foreach ($rows as $row) {
-            for ($column = 1; $column <= $columns; $column++) {
-                Seat::create([
-                    'flight_number' => 'ABC222',
-                    'seat_number' => $row . $column,
-                ]);
-            }
-        }
     }
 
     /**
