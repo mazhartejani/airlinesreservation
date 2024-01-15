@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Flight;
 use App\Models\Ticket;
 use App\Models\Seat;
+use Carbon\Carbon;
 use Auth;
 
 class TicketController extends Controller
@@ -21,10 +22,10 @@ class TicketController extends Controller
         $title = 'My tickets';
 
         if($user->is_admin) {
-            $tickets = Ticket::with('passenger')->paginate(10);
+            $tickets = Ticket::with('passenger')->orderBy('ticket_number','desc')->paginate(5);
             $title = 'Tickets';
         } else {
-            $tickets = Ticket::with('passenger')->where('user_id', $user->id)->paginate(10);
+            $tickets = Ticket::with('passenger')->where('user_id', $user->id)->orderBy('ticket_number','desc')->paginate(5);
         }
         
         return view('pages.tickets.tickets', compact('tickets', 'title'));
@@ -65,7 +66,7 @@ class TicketController extends Controller
         $ticket = $this->reserveSeat($flightNumber, $date, $seatPreference);
 
         // Provide a confirmation message with reservation details
-        return redirect()->route('ticketsHistory')->with('success', 'Reservation successful.')->with('ticket', $ticket);
+        return redirect()->back()->with('success', 'Reservation successful.')->with('ticket', $ticket);
     }
 
     public function cancelReservation(Request $request)
@@ -104,10 +105,17 @@ class TicketController extends Controller
             return response()->json(['message' => 'Unauthorized. Please log in.'], 401);
         }
 
+        // $date = DateTime::createFromFormat('Y-m-d\TH:i', $date)->format('Y-m-d H:i:s');
+
+        $carbonDatetime = Carbon::createFromFormat('Y-m-d\TH:i', $date);
+        $date = $carbonDatetime->format('Y-m-d H:i:s');
+        $fromDate = $carbonDatetime->format('Y-m-d 00:00:00');
+        $toDate = $carbonDatetime->format('Y-m-d 23:59:59');
+
+
         // Retrieve the list of reserved seats for the specified flight and date
         $reservedSeats = Ticket::where('flight_number', $flightNumber)
-        ->where('booking_date_time', '>=', $date . ' 00:00:00')
-        ->where('booking_date_time', '<=', $date . ' 23:59:59')        
+        ->whereBetween('booking_date_time', [$fromDate,$toDate])
         ->pluck('seat_number')
         ->toArray();
             
