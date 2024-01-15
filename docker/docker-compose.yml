@@ -46,6 +46,8 @@ services:
     image: your-laravel-image
     command: >
       bash -c "
+        cp .env-example .env && 
+        php artisan key:generate && 
         composer install && 
         php artisan migrate --seed && 
         npm install && 
