@@ -19,7 +19,7 @@ class TicketController extends Controller
     // Admin function
     public function getAllTickets() {
         $user = Auth::user();
-        $title = 'My tickets';
+        $title = 'Booking History';
 
         if($user->is_admin) {
             $tickets = Ticket::with('passenger')->orderBy('ticket_number','desc')->paginate(5);

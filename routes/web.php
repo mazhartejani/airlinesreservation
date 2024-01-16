@@ -25,7 +25,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/reservation', [TicketController::class, 'reserveTicketForm'])->name('reserveTicketForm');
 Route::post('/reserve-ticket', [TicketController::class, 'reserveTicket'])->name('reserveTicket');
 Route::get('/tickets', [TicketController::class, 'getAllTickets'])->name('getAllTickets');
-Route::get('/my-tickets', [TicketController::class, 'getAllTickets'])->name('ticketsHistory');
+Route::get('/booking-history', [TicketController::class, 'getAllTickets'])->name('ticketsHistory');
 
 Route::get('/updateTicketStatus/{ticket_number}/{status}', [TicketController::class, 'updateTicketStatus'])->name('updateTicketStatus');
 
