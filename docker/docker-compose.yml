@@ -12,10 +12,10 @@ services:
   mysql:
     image: mysql:latest
     environment:
-      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_DATABASE=airlinesystem
       - MYSQL_USER=admin
-      - MYSQL_PASSWORD=${DB_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=root
     ports:
       - 3306:3306
 
@@ -32,7 +32,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - PMA_HOST=mysql
       - PMA_USER=admin
-      - PMA_PASSWORD=${DB_PASSWORD}
+      - PMA_PASSWORD=root
     depends_on:
       - mysql
   php:
@@ -41,21 +41,3 @@ services:
       dockerfile: php.dockerfile
     volumes:
       - ../:/var/www/html
-
-  composer:
-    image: your-laravel-image
-    command: >
-      bash -c "
-        cp .env-example .env && 
-        php artisan key:generate && 
-        composer install && 
-        php artisan migrate --seed && 
-        npm install && 
-        npm run build 
-
-        echo 'All commands executed successfully'
-      "
-    volumes:
-      - ../:/var/www/html
-    depends_on:
-      - php

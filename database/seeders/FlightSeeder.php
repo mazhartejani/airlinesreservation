@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Flight;
+use App\Models\Seat;
 
 class FlightSeeder extends Seeder
 {
