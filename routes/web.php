@@ -23,6 +23,10 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/reservation', [TicketController::class, 'reserveTicketForm'])->name('reserveTicketForm');
+Route::get('/upgrade-seat', [TicketController::class, 'upgradeSeatForm'])->name('upgradeSeatForm');
+Route::get('/seach-ticket', [TicketController::class, 'searchTicket'])->name('searchTicket');
+Route::post('/upgrade-seat', [TicketController::class, 'upgradeSeat'])->name('upgradeSeat');
+
 Route::post('/reserve-ticket', [TicketController::class, 'reserveTicket'])->name('reserveTicket');
 Route::get('/tickets', [TicketController::class, 'getAllTickets'])->name('getAllTickets');
 Route::get('/booking-history', [TicketController::class, 'getAllTickets'])->name('ticketsHistory');

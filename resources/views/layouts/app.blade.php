@@ -43,6 +43,9 @@
                             <a class="nav-link" href="{{ route('reserveTicketForm') }}">{{ __('Reservation') }}</a>
                         </li>  
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('upgradeSeatForm') }}">{{ __('Upgrade Seat') }}</a>
+                        </li>  
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('flightSearchForm') }}">{{ __('Flight Search') }}</a>
                         </li>   
                     </ul>
