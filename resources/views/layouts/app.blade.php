@@ -15,6 +15,18 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <style>
+        body {
+            background-image: url('bg.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .form-select, .form-control {
+            line-height: 2 !important
+        }
+    </style>
 </head>
 <body>
     <div id="app">
