@@ -54,5 +54,5 @@ This is an assignment project for one of my university courses. It allows passen
 
 ## Contact Information
 
-If you have any questions or concerns, feel free to contact me at your.email@example.com.
+If you have any questions or concerns, feel free to contact me at 893479@stud.unive.it.
 
