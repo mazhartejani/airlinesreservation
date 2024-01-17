@@ -52,6 +52,16 @@ This is an assignment project for one of my university courses. It allows passen
 
     This script will set up databases and install all the dependencies.
 
+## Login Credentials
+
+1. Passenger:
+    email: mazhar@test.com
+    password: 12345678
+
+2. Admin:
+    email: admin@test.com
+    password: 12345678
+
 ## Contact Information
 
 If you have any questions or concerns, feel free to contact me at 893479@stud.unive.it.
