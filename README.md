@@ -18,16 +18,16 @@ This is an assignment project for one of my university courses. It allows passen
     cd airlinesreservation
     ```
 
-3. Make the setup script executable:
-
-    ```bash
-    chmod +x envsetup.sh
-    ```
-
-4. Navigate to the Docker directory:
+3. Navigate to the Docker directory:
 
     ```bash
     cd docker
+    ```
+
+4. Make the setup script executable:
+
+    ```bash
+    chmod +x envsetup.sh
     ```
 
 5. Start the Docker containers:
@@ -38,19 +38,18 @@ This is an assignment project for one of my university courses. It allows passen
 
     Wait until all containers are in the running state.
 
-6. Go back to the project root:
-
-    ```bash
-    cd ..
-    ```
-
-7. Run the setup script:
+6. Run the setup script:
 
     ```bash
     bash envsetup.sh
     ```
 
     This script will set up databases and install all the dependencies.
+
+7. Applicatin will start at port:80
+    ```
+    http://localhost:80
+    ```
 
 ## Login Credentials
 
