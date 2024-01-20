@@ -3,6 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property='og:title' content="{{ config('app.name', 'Software Architecture Project') }}" />
+    <meta property='og:description' content='Software Architecture Project' />
+    <meta property='og:type' content='website' />
+    <meta property='og:site_name' content='Software Architecture Project' />
+    <meta property='og:locale' content='en_US' />
+    <meta name='author' content='Mazhar Hussain (893479)'>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
